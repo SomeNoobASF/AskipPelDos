@@ -248,12 +248,12 @@ while IFS= read -r bad_ip; do
 done <"./blacklist"
 "$IP" -t raw -A PREROUTING -m set --match-set blacklist src -j "$IBA" > /dev/null 2>&1
 
- "$IP" -t raw -A PREROUTING -p tcp --tcp-option 1 -j DROP (NOP/RFC9293)
- "$IP" -t raw -A PREROUTING -p tcp --tcp-option 3 -j DROP (WinScale/RFC7372)
- "$IP" -t raw -A PREROUTING -p tcp --tcp-option 5 -j DROP (SACK/RFC2018)
- "$IP" -t raw -A PREROUTING -p tcp --tcp-option 8 -j DROP (Timestamps/RFC7323)
- "$IP" -t raw -A PREROUTING -p tcp --tcp-option 27 -j DROP (QuickStartResp/RFC7882)
- "$IP" -t raw -A PREROUTING -p tcp --tcp-option 34 -j DROP (TFO Cookie)
+ "$IP" -t raw -A PREROUTING -p tcp --tcp-option 1 -j DROP
+ "$IP" -t raw -A PREROUTING -p tcp --tcp-option 3 -j DROP
+ "$IP" -t raw -A PREROUTING -p tcp --tcp-option 5 -j DROP
+ "$IP" -t raw -A PREROUTING -p tcp --tcp-option 8 -j DROP
+ "$IP" -t raw -A PREROUTING -p tcp --tcp-option 27 -j DROP
+ "$IP" -t raw -A PREROUTING -p tcp --tcp-option 34 -j DROP
  "$IP" -t raw -I PREROUTING -p tcp --dport 3306 -m string --string "union select" --algo bm -j DROP
  "$IP" -t raw -I PREROUTING -p tcp --dport 3306 -m string --string "information_schema" --algo bm -j DROP
  "$IP" -t raw -A PREROUTING -p udp --sport 53 -m string --string "Refused" --algo bm -j DROP
