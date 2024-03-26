@@ -183,7 +183,6 @@ accidental_start_prevention
  "$NFT" flush ruleset
  "$NFT" add table filter > /dev/null 2>&1 &
  "$IPS" destroy blacklist > /dev/null 2>&1 &
- "$IP" -P INPUT DROP
  "$IP" -A INPUT -i lo -s 127.0.0.0/8 -j ACCEPT
  "$IP" -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
  "$IP" -A INPUT -p tcp --dport "$SSH" -j ACCEPT
